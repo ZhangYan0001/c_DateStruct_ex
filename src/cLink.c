@@ -4,35 +4,29 @@
 
 #include "cLink.h"
 
-Link* create_link() {
-  Link* node = (Link*) malloc(sizeof(Link));
-  node->next = NULL;
-  node->value = 0;
-  return node;
+Link* create_link(){
+  Link* link = (Link*) malloc(sizeof(Link));
+  link->size = 1;
+  link->head = (Node*) malloc(sizeof(Node));
+  link->tail = link->head;
+  link->head->next = NULL;
+  link->head->data = NULL;
+  return link;
 }
 
-void add_node_end(Link* link, Link* n) {
-  while (link->next != NULL) {
-    link = link->next;
+Link* create_link_n(size_t n){
+  Link* link = (Link*) malloc(sizeof(Link));
+  Link* tmp = link;
+  link->size = n;
+  while(--n){
+    link->head = (Node*)malloc(sizeof(Node));
+    link->head->data = NULL;
+    link->head=link->head->next;
   }
-  link->next = n;
-  n->next = NULL;
+  link->tail = link->head;
+  return tmp;
 }
 
-void remove_node_end(Link* link) {
-  if (link->next == NULL) {
-    link = NULL;
-    return;
-  }
-  while (link->next->next != NULL) {
-    link = link->next;
-  }
-  link->next = NULL;
-}
+void link_add_node(Link* link,Node* node){
 
-void for_each(Link* link) {
-  while (link->next != NULL) {
-    printf(" %d ", link->value);
-    link = link->next;
-  }
 }

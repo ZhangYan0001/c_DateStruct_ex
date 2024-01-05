@@ -4,13 +4,22 @@
 
 #ifndef C_LINK_H_
 #define C_LINK_H_
+#include <errno.h>
 #include <memory.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-typedef struct Link {
-  struct Link* next;
-  int value;
+typedef struct Node_ {
+  void* data;
+  struct Node_* next;
+} Node;
+
+typedef struct Link_ {
+  size_t size;
+  Node* head;
+  Node* tail;
+  void (*dump)(void*);
+  int (*cmp)(const void*, const void*);
 } Link;
 
 Link* create_link();

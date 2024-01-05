@@ -3,8 +3,8 @@
 //
 #include "cTest.h"
 
-void link_test(){
-  Link * link = create_link();
-
-}
-
+//void link_test(){
+//  Link * link = create_link();
+//
+//}
+//
