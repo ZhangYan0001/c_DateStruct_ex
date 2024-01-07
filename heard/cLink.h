@@ -17,7 +17,6 @@ typedef struct Node_ {
 typedef struct Link_ {
   size_t size;
   Node* head;
-  Node* tail;
   void (*dump)(void*);
   int (*cmp)(const void*, const void*);
 } Link;

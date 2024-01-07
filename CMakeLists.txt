@@ -7,4 +7,7 @@ include_directories("./heard")
 add_executable(C_DateStruct_ex main.c
         src/cLink.c
         src/cTest.c
-        heard/cTest.h)
+        heard/cTest.h
+        heard/cLinkList.h
+        heard/cLink.h
+        src/cLinkList.c)
