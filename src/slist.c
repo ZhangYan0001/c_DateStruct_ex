@@ -38,6 +38,7 @@ void SListFree(SList* list) {
 }
 
 int SListAppend(SList* list, NodeValue value) {
+  //todo 错误处理规范化
   Node* node = (Node*) malloc(sizeof(Node));
   if (node == nullptr) {
     fprintf(stderr, "Error: failed to allocate for new node\n");
@@ -46,18 +47,17 @@ int SListAppend(SList* list, NodeValue value) {
   node->data = value;
   node->next = nullptr;
 
-  if (list->first) {
-    list->last->next = node;
-    list->last = node;
-  } else {
+  if (list->first) list->last->next = node;
+  else
     list->first = node;
-    list->last = node;
-  }
+
+  list->last = node;
   list->size++;
   return 1;
 }
 
 int SListPrepend(SList* list, NodeValue value) {
+  //todo 错误处理规范化
   Node* node = (Node*) malloc(sizeof(Node));
   if (node == nullptr) {
     fprintf(stderr, "Error: failed to allocate for new node\n");
@@ -67,16 +67,15 @@ int SListPrepend(SList* list, NodeValue value) {
     fprintf(stderr, "Error: the list is null\n");
     return -1;
   }
+  //todo 还有优化的空间
   if (list->size == 0) {
-    list->first = node;
     list->last = node;
-    node->data = value;
     node->next = nullptr;
   } else {
-    node->data = value;
     node->next = list->first;
-    list->first = node;
   }
+  node->data = value;
+  list->first = node;
   list->size++;
   return 1;
 }
@@ -110,7 +109,7 @@ void SListForeach(SList* list) {
   Node* tmp = list->first;
   while (tmp) {
     printf("%d ", *(int*) tmp->data);
-    if (tmp != list->last) tmp = tmp->next;
+    if (tmp->next != nullptr) tmp = tmp->next;
     else {
       printf("\n");
       break;
@@ -141,5 +140,33 @@ void SListInsert(SList* list, unsigned int n, NodeValue data) {
   node->next = next;
   node->data = data;
   tmp->next = node;
+
   list->size++;
+}
+
+void SListDelete(SList* list, unsigned int n) {
+  if (list == nullptr) {
+    fprintf(stderr, "Error: the list is null");
+    return;
+  }
+  int length = list->size;
+  if (n < 0 || n >= length) {
+    fprintf(stderr, "Error: out of range");
+  }
+  Node* prev = list->first;
+  if (n == 0) {
+    free(list->first);
+    list->first = prev->next;
+    return;
+  }
+  --n;
+  while (n) {
+    prev = prev->next;
+    --n;
+  }
+  if (prev->next->next == nullptr) {
+    list->last = prev;
+  }
+  prev->next = prev->next->next;
+  list->size--;
 }

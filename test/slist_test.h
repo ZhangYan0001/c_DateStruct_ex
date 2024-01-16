@@ -13,7 +13,8 @@ extern "C" {
 void append_test();
 void erase_test();
 void prepend_test();
-void new_test();
+void insert_test();
+void delete_test();
 
 #ifdef __cplusplus
 }

@@ -6,6 +6,8 @@
 int main() {
 //  append_test();
 //  prepend_test();
-  erase_test();
+//  erase_test();
+//  insert_test();
+  delete_test();
   return 0;
 }

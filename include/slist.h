@@ -41,7 +41,6 @@ void SListForeach(SList* list);
 void SListInsert(SList* list, unsigned int n, NodeValue data);
 void SListDelete(SList* list, unsigned int n);
 
-SList* SListReverse(SList* list);
 SList* SListRemove(SList* list);
 
 #ifdef __cplusplus
